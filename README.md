@@ -19,6 +19,8 @@ Link do vídeo mostrando o projeto em funcionamento <br>
 
 Para criar um ambiente adequado de desenvolvimento Web, executamos os seguintes passos:
 
+### Instalação do Node
+Instale o NodeJs para usar as dependências corretamente. Acesse o site https://nodejs.org/
 
 ### Editor de código
 
@@ -65,10 +67,30 @@ Para executar o projeto, realize as seguintes etapas:
 git clone https://github.com/prsousa8/basket-balls_computer-graphics.git
 ~~~
 
+E entre na pasta do projeto usando 
+
+~~~
+cd basket-balls_computer-graphics
+~~~
+
+### Instalação do vite
+
+Instale o vite por meio do comando:
+~~~
+npm install --save-dev vite
+~~~
+
+Ou instale todas as dependências de uma única vez com:
+~~~
+npm install
+~~~
 
 ### Execução
 
-Utilize a extensão Live Server do VS Code para rodar o projeto localmente.
+Utilize o comando abaixo via terminal para executar o código:
+~~~
+npx vite
+~~~
 
 ## Colaboradores
 
