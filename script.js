@@ -43,43 +43,78 @@ function createPlate() {
     let plateMesh = new THREE.Mesh(plateGeometry, plateMaterial);
     
     plate.add(plateMesh);
-    plate.position.set(0, 0.3, 0);
+    plate.position.set(0, 0.3, 0);  // Eleva o recipiente para que as bolinhas caiam nele
     scene.add(plate);
+
+    // Adicionando o fundo ao recipiente
+    let bottomGeometry = new THREE.CircleGeometry(plateRadius, 32); // Gera uma forma circular
+    let bottomMaterial = new THREE.MeshStandardMaterial({ color: 0x008000 }); // Material verde para o fundo
+    let bottomMesh = new THREE.Mesh(bottomGeometry, bottomMaterial);
+    
+    bottomMesh.rotation.x = -Math.PI / 2;  // Rotaciona para que o fundo fique na horizontal
+    bottomMesh.position.y = 0;  // Coloca o fundo no mesmo nível do chão
+
+    plate.add(bottomMesh); // Adiciona o fundo ao grupo "plate"
 }
 
 function createParticle() {
     let geometry = new THREE.SphereGeometry(0.1, 16, 16);
     let material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
     let particle = new THREE.Mesh(geometry, material);
-    particle.position.set((Math.random() - 0.5) * 3, 5, (Math.random() - 0.5) * 3);
+
+    // Posição aleatória **fixa** dentro de um intervalo no eixo X e Z
+    let spawnRadius = plateRadius * 0.8;
+    let x = (Math.random() - 0.5) * (plateRadius * 2); // Garante que caia dentro de uma área fixa
+    let z = (Math.random() - 0.5) * (plateRadius * 2); 
+
+    particle.position.set(x, 5, z); // Mantém a altura fixa para cair de cima
     particle.velocity = new THREE.Vector3(0, gravity, 0);
+    
     scene.add(particle);
     particles.push(particle);
 }
 
+
 function updateParticles() {
-    particles.forEach((p, index) => {
-        p.velocity.y += gravity; 
+    for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+
+        p.velocity.y += gravity;
         p.position.add(p.velocity);
-        
-        // Colisão com o chão
-        if (p.position.y <= 0) {
-            scene.remove(p);
-            particles.splice(index, 1);
+
+        // Colisão com o chão do recipiente (fundo)
+        if (p.position.y <= 0.4) {
+            p.velocity.y *= -0.5; // Rebote vertical
+            p.position.y = 0.4;
         }
 
-        // Colisão com a cesta
+        // Mantém as bolinhas dentro do recipiente
         let dx = p.position.x - plate.position.x;
         let dz = p.position.z - plate.position.z;
         let distance = Math.sqrt(dx * dx + dz * dz);
-        
-        if (p.position.y <= 0.4 && distance < plateRadius - 0.2) {
-            p.velocity.y *= -0.5; // Rebote
-            p.position.y = 0.4;
-            plate.add(p); // Adiciona a partícula como filha da cesta para mover junto
+
+        if (distance > plateRadius - 0.2) {
+            // Se ultrapassar a borda, empurra de volta suavemente
+            let normal = new THREE.Vector3(dx, 0, dz).normalize();
+            p.position.x = plate.position.x + normal.x * (plateRadius - 0.21);
+            p.position.z = plate.position.z + normal.z * (plateRadius - 0.21);
+            p.velocity.x *= -0.3;
+            p.velocity.z *= -0.3;
         }
-    });
+
+        // Evitar sobreposição entre partículas
+        for (let j = i + 1; j < particles.length; j++) {
+            let p2 = particles[j];
+            let dist = p.position.distanceTo(p2.position);
+            if (dist < 0.2) { // Se estiverem muito próximas
+                let direction = new THREE.Vector3().subVectors(p.position, p2.position).normalize();
+                p.position.addScaledVector(direction, 0.05); // Empurra um pouco para longe
+                p2.position.addScaledVector(direction, -0.05);
+            }
+        }
+    }
 }
+
 
 window.addEventListener('mousemove', (event) => {
     if (gameRunning && plate) {

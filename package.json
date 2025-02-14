@@ -1,0 +1,15 @@
+{
+  "name": "basket-balls_computer-graphics",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Game\tCesta\tde\tBolinhas</h1>",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}
