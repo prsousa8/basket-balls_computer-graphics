@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import { createScorePanel, updateScore, createToggleScoreButton } from './js/score.js';
+import { getRandomMaterial } from './js/textures.js';
+
 
 createScorePanel(true); // Ativa o painel de pontuação
 createToggleScoreButton(); // Cria o botão para alternar a visibilidade do score
@@ -64,7 +66,8 @@ function createPlate() {
 
 function createParticle() {
     let geometry = new THREE.SphereGeometry(0.1, 16, 16);
-    let material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+    // let material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+    let material = getRandomMaterial(); // Usa a função do módulo
     let particle = new THREE.Mesh(geometry, material);
 
     // Posição aleatória **fixa** dentro de um intervalo no eixo X e Z
