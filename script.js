@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+import { createScorePanel, updateScore, createToggleScoreButton } from './js/score.js';
+
+createScorePanel(true); // Ativa o painel de pontuação
+createToggleScoreButton(); // Cria o botão para alternar a visibilidade do score
+
 let scene, camera, renderer, controls;
 let plate, particles = [], gravity = -0.005;
 let plateRadius = 1.5;
@@ -86,6 +91,11 @@ function updateParticles() {
         if (p.position.y <= 0.4) {
             p.velocity.y *= -0.5; // Rebote vertical
             p.position.y = 0.4;
+
+             if (!p.captured) {
+                p.captured = true; // Marca como capturada
+                updateScore(1); // Aumenta a pontuação em 1
+            }
         }
 
         // Mantém as bolinhas dentro do recipiente
@@ -128,7 +138,7 @@ function createStartButton() {
     button.innerText = 'Iniciar Jogo';
     button.style.position = 'absolute';
     button.style.top = '10px';
-    button.style.left = '50%';
+    button.style.left = '10%';
     button.style.transform = 'translateX(-50%)';
     button.style.padding = '10px 20px';
     button.style.fontSize = '16px';
