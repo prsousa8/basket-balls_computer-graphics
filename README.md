@@ -7,6 +7,11 @@
 Link do vídeo mostrando o projeto em funcionamento <br>
 <a href="" target="_blank"> Clique aqui!</a>
 
+## Aquisição de texturas
+
+As texturas utilizadas no projeto podem ser encontradas no site abaixo. <br>
+<a href="https://freepbr.com/" target="_blank"> Clique aqui!</a>
+
 ## Tecnologias e Ferramentas Utilizadas 🔧
 
 <div align="left">
