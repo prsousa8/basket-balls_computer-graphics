@@ -84,49 +84,74 @@ function createParticle() {
 
 
 function updateParticles() {
-    for (let i = 0; i < particles.length; i++) {
+    for (let i = particles.length - 1; i >= 0; i--) {
         let p = particles[i];
 
         p.velocity.y += gravity;
         p.position.add(p.velocity);
 
-        // Colisão com o chão do recipiente (fundo)
+        // Quando a bolinha atinge o chão do prato
         if (p.position.y <= 0.4) {
-            p.velocity.y *= -0.5; // Rebote vertical
+            p.velocity.y *= -0.2; // Rebote menor para evitar vibração
             p.position.y = 0.4;
 
-             if (!p.captured) {
-                p.captured = true; // Marca como capturada
-                updateScore(1); // Aumenta a pontuação em 1
+            let dx = p.position.x - plate.position.x;
+            let dz = p.position.z - plate.position.z;
+            let distance = Math.sqrt(dx * dx + dz * dz);
+
+            if (distance > plateRadius - 0.2) {
+                // Se caiu fora do prato, remove a bolinha
+                scene.remove(p);
+                particles.splice(i, 1);
+                continue;
+            } else {
+                if (!p.captured) {
+                    p.captured = true;
+                    updateScore(1);
+                }
             }
         }
 
-        // Mantém as bolinhas dentro do recipiente
-        let dx = p.position.x - plate.position.x;
-        let dz = p.position.z - plate.position.z;
-        let distance = Math.sqrt(dx * dx + dz * dz);
+        // Só corrige a posição se realmente estiver saindo do prato
+        if (p.captured) {
+            let dx = p.position.x - plate.position.x;
+            let dz = p.position.z - plate.position.z;
+            let distance = Math.sqrt(dx * dx + dz * dz);
 
-        if (distance > plateRadius - 0.2) {
-            // Se ultrapassar a borda, empurra de volta suavemente
-            let normal = new THREE.Vector3(dx, 0, dz).normalize();
-            p.position.x = plate.position.x + normal.x * (plateRadius - 0.21);
-            p.position.z = plate.position.z + normal.z * (plateRadius - 0.21);
-            p.velocity.x *= -0.3;
-            p.velocity.z *= -0.3;
+            if (distance > plateRadius - 0.2) {
+                let normal = new THREE.Vector3(dx, 0, dz).normalize();
+                p.position.x = plate.position.x + normal.x * (plateRadius - 0.21);
+                p.position.z = plate.position.z + normal.z * (plateRadius - 0.21);
+                p.velocity.x *= -0.2; // Menos impacto na velocidade
+                p.velocity.z *= -0.2;
+            } else {
+                // Ajusta suavemente, mas só se estiver se afastando muito
+                let targetX = plate.position.x;
+                let targetZ = plate.position.z;
+
+                let diffX = Math.abs(p.position.x - targetX);
+                let diffZ = Math.abs(p.position.z - targetZ);
+
+                if (diffX > 0.05 || diffZ > 0.05) { 
+                    p.position.x += (targetX - p.position.x) * 0.05;
+                    p.position.z += (targetZ - p.position.z) * 0.05;
+                }
+            }
         }
 
         // Evitar sobreposição entre partículas
         for (let j = i + 1; j < particles.length; j++) {
             let p2 = particles[j];
             let dist = p.position.distanceTo(p2.position);
-            if (dist < 0.2) { // Se estiverem muito próximas
+            if (dist < 0.2) {
                 let direction = new THREE.Vector3().subVectors(p.position, p2.position).normalize();
-                p.position.addScaledVector(direction, 0.05); // Empurra um pouco para longe
+                p.position.addScaledVector(direction, 0.05);
                 p2.position.addScaledVector(direction, -0.05);
             }
         }
     }
 }
+
 
 
 window.addEventListener('mousemove', (event) => {
