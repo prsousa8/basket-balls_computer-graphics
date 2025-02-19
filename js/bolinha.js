@@ -11,7 +11,19 @@ class Bolinha {
 
         this.particle = new THREE.Mesh(geometry, material);
         this.scoreValue = pointValue;
-    }    
+    }
+
+    getParticle() {
+        return this.particle;
+    }
+
+    getScoreValue() {
+        return this.scoreValue;
+    }
+
+    static getMaxPoints() {
+        return getTotalTexturesNum();
+    }
 }
 
 export { Bolinha }

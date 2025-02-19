@@ -2,14 +2,13 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import { createScorePanel, updateScore, createToggleScoreButton } from './js/score.js';
-import { getRandomMaterial } from './js/textures.js';
-
+import { Bolinha } from './js/bolinha.js';
 
 createScorePanel(true); // Ativa o painel de pontuação
 createToggleScoreButton(); // Cria o botão para alternar a visibilidade do score
 
 let scene, camera, renderer, controls;
-let plate, particles = [], gravity = -0.005;
+let plate, bolinhas = [], gravity = -0.005;
 let plateRadius = 1.5;
 let gameRunning = false;
 let particleInterval;
@@ -65,94 +64,104 @@ function createPlate() {
 }
 
 function createParticle() {
+    let pontuacaoAleatoria = Math.ceil(Math.random() * Bolinha.getMaxPoints());
+    let novaBolinha = new Bolinha(pontuacaoAleatoria);
+
+    /*
     let geometry = new THREE.SphereGeometry(0.1, 16, 16);
     // let material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
     let material = getRandomMaterial(); // Usa a função do módulo
     let particle = new THREE.Mesh(geometry, material);
+    */
 
     // Posição aleatória **fixa** dentro de um intervalo no eixo X e Z
-    let spawnRadius = plateRadius * 0.8;
+    // let spawnRadius = plateRadius * 0.8;
     let x = (Math.random() - 0.5) * (plateRadius * 2); // Garante que caia dentro de uma área fixa
     let z = (Math.random() - 0.5) * (plateRadius * 2); 
 
-    particle.position.set(x, 5, z); // Mantém a altura fixa para cair de cima
-    particle.velocity = new THREE.Vector3(0, gravity, 0);
+    let particula = novaBolinha.getParticle();
+    particula.position.set(x, 5, z); // Mantém a altura fixa para cair de cima
+    particula.velocity = new THREE.Vector3(0, gravity, 0);
     
-    scene.add(particle);
-    particles.push(particle);
+    scene.add(particula);
+    bolinhas.push(novaBolinha);
 }
 
-
 function updateParticles() {
-    for (let i = particles.length - 1; i >= 0; i--) {
-        let p = particles[i];
+    for (let i = bolinhas.length - 1; i >= 0; i--) {
+        let bolinhaIndex = bolinhas[i];
+        let bolinhaParticula = bolinhaIndex.getParticula();
 
-        p.velocity.y += gravity;
-        p.position.add(p.velocity);
+        // let p = bolinhas[i];
+
+        bolinhaParticula.velocity.y += gravity;
+        bolinhaParticula.position.add(bolinhaParticula.velocity);
 
         // Quando a bolinha atinge o chão do prato
-        if (p.position.y <= 0.4) {
-            p.velocity.y *= -0.2; // Rebote menor para evitar vibração
-            p.position.y = 0.4;
+        if (bolinhaParticula.position.y <= 0.4) {
+            bolinhaParticula.velocity.y *= -0.2; // Rebote menor para evitar vibração
+            bolinhaParticula.position.y = 0.4;
 
-            let dx = p.position.x - plate.position.x;
-            let dz = p.position.z - plate.position.z;
+            let dx = bolinhaParticula.position.x - plate.position.x;
+            let dz = bolinhaParticula.position.z - plate.position.z;
             let distance = Math.sqrt(dx * dx + dz * dz);
 
             if (distance > plateRadius - 0.2) {
                 // Se caiu fora do prato, remove a bolinha
-                scene.remove(p);
-                particles.splice(i, 1);
+                scene.remove(bolinhaParticula);
+                bolinhas.splice(i, 1);
                 continue;
             } else {
-                if (!p.captured) {
-                    p.captured = true;
+                if (!bolinhaParticula.captured) {
+                    bolinhaParticula.captured = true;
                     updateScore(1);
                 }
             }
         }
 
         // Só corrige a posição se realmente estiver saindo do prato
-        if (p.captured) {
-            let dx = p.position.x - plate.position.x;
-            let dz = p.position.z - plate.position.z;
+        if (bolinhaParticula.captured) {
+            let dx = bolinhaParticula.position.x - plate.position.x;
+            let dz = bolinhaParticula.position.z - plate.position.z;
             let distance = Math.sqrt(dx * dx + dz * dz);
 
             if (distance > plateRadius - 0.2) {
                 let normal = new THREE.Vector3(dx, 0, dz).normalize();
-                p.position.x = plate.position.x + normal.x * (plateRadius - 0.21);
-                p.position.z = plate.position.z + normal.z * (plateRadius - 0.21);
-                p.velocity.x *= -0.2; // Menos impacto na velocidade
-                p.velocity.z *= -0.2;
+                bolinhaParticula.position.x = plate.position.x + normal.x * (plateRadius - 0.21);
+                bolinhaParticula.position.z = plate.position.z + normal.z * (plateRadius - 0.21);
+                bolinhaParticula.velocity.x *= -0.2; // Menos impacto na velocidade
+                bolinhaParticula.velocity.z *= -0.2;
             } else {
                 // Ajusta suavemente, mas só se estiver se afastando muito
                 let targetX = plate.position.x;
                 let targetZ = plate.position.z;
 
-                let diffX = Math.abs(p.position.x - targetX);
-                let diffZ = Math.abs(p.position.z - targetZ);
+                let diffX = Math.abs(bolinhaParticula.position.x - targetX);
+                let diffZ = Math.abs(bolinhaParticula.position.z - targetZ);
 
                 if (diffX > 0.05 || diffZ > 0.05) { 
-                    p.position.x += (targetX - p.position.x) * 0.05;
-                    p.position.z += (targetZ - p.position.z) * 0.05;
+                    bolinhaParticula.position.x += (targetX - p.position.x) * 0.05;
+                    bolinhaParticula.position.z += (targetZ - p.position.z) * 0.05;
                 }
             }
         }
 
         // Evitar sobreposição entre partículas
-        for (let j = i + 1; j < particles.length; j++) {
-            let p2 = particles[j];
-            let dist = p.position.distanceTo(p2.position);
+        for (let j = i + 1; j < bolinhas.length; j++) {
+            let bolinhaIndex2 = bolinhas[j];
+            let bolinhaParticula2 = bolinhaIndex.getParticula();
+
+            // let p2 = bolinhas[j];
+
+            let dist = bolinhaParticula.position.distanceTo(bolinhaParticula2.position);
             if (dist < 0.2) {
-                let direction = new THREE.Vector3().subVectors(p.position, p2.position).normalize();
-                p.position.addScaledVector(direction, 0.05);
-                p2.position.addScaledVector(direction, -0.05);
+                let direction = new THREE.Vector3().subVectors(bolinhaParticula.position, bolinhaParticula2.position).normalize();
+                bolinhaParticula.position.addScaledVector(direction, 0.05);
+                bolinhaParticula2.position.addScaledVector(direction, -0.05);
             }
         }
     }
 }
-
-
 
 window.addEventListener('mousemove', (event) => {
     if (gameRunning && plate) {
