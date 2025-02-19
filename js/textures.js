@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { exp } from 'three/tsl';
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -33,20 +32,3 @@ function getRandomMaterial() {
 }
 
 export { getRandomMaterial };
-
-function getTypeMaterial(type) {
-    switch (type) {
-        case 1:
-            return materials[1]; // madeira
-        case 2:
-            return materials[0]; // metal
-        case 3:
-            return materials[3]; // lava brilhante
-        case 4:
-            return materials[8]; // neon brilhante
-        default:
-            return materials[1]; // madeira
-    }
-}
-
-export {getTypeMaterial};
