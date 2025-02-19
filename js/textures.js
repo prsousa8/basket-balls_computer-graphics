@@ -15,14 +15,14 @@ const neonTexture = textureLoader.load('assets/textures/painted-worn-asphalt.png
 
 // Criando materiais para as bolinhas
 const materials = [
-    new THREE.MeshStandardMaterial({ map: metalTexture, metalness: 1, roughness: 0.3 }), // Metal
-    new THREE.MeshStandardMaterial({ map: woodTexture, roughness: 0.8 }), // Madeira
-    new THREE.MeshStandardMaterial({ map: marbleTexture, roughness: 0.5 }), // Mármore
-    new THREE.MeshStandardMaterial({ map: lavaTexture, emissiveIntensity: 0.01 }), // Lava (brilhante)
     new THREE.MeshStandardMaterial({ map: grassTexture, roughness: 1, metalness: 0 }), // Grama
     new THREE.MeshStandardMaterial({ map: iceTexture, transparent: true, opacity: 0.7, roughness: 0.2, metalness: 0.1 }), // Gelo
+    new THREE.MeshStandardMaterial({ map: woodTexture, roughness: 0.8 }), // Madeira
     new THREE.MeshStandardMaterial({ map: wallTexture, roughness: 0.9 }), // Pedra
+    new THREE.MeshStandardMaterial({ map: marbleTexture, roughness: 0.5 }), // Mármore
+    new THREE.MeshStandardMaterial({ map: metalTexture, metalness: 1, roughness: 0.3 }), // Metal
     new THREE.MeshStandardMaterial({ map: carbonFiberTexture, metalness: 0.6, roughness: 0.2 }), // Fibra de carbono
+    new THREE.MeshStandardMaterial({ map: lavaTexture, emissiveIntensity: 0.01 }), // Lava (brilhante)
     new THREE.MeshStandardMaterial({ map: neonTexture, emissiveIntensity: 1.2 }) // Neon brilhante
 ];
 
