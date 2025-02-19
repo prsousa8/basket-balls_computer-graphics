@@ -90,7 +90,8 @@ function createParticle() {
 function updateParticles() {
     for (let i = bolinhas.length - 1; i >= 0; i--) {
         let bolinhaIndex = bolinhas[i];
-        let bolinhaParticula = bolinhaIndex.getParticula();
+        let bolinhaParticula = bolinhaIndex.getParticle();
+
 
         // let p = bolinhas[i];
 
@@ -149,7 +150,7 @@ function updateParticles() {
         // Evitar sobreposição entre partículas
         for (let j = i + 1; j < bolinhas.length; j++) {
             let bolinhaIndex2 = bolinhas[j];
-            let bolinhaParticula2 = bolinhaIndex.getParticula();
+            let bolinhaParticula2 = bolinhaIndex.getParticle();
 
             // let p2 = bolinhas[j];
 
