@@ -26,6 +26,20 @@ const materials = [
     new THREE.MeshStandardMaterial({ map: neonTexture, emissiveIntensity: 1.2 }) // Neon brilhante
 ];
 
+// Função que retorna o total de texturas
+function getTotalTexturesNum() {
+    return materials.length;
+}
+
+export { getTotalTexturesNum };
+
+// Função que retorna um material especifico
+function getIndexedMaterial(index) {
+    return materials[index];
+}
+
+export { getIndexedMaterial };
+
 // Função que retorna um material aleatório
 function getRandomMaterial() {
     return materials[Math.floor(Math.random() * materials.length)];
