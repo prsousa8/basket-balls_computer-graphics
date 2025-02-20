@@ -141,8 +141,8 @@ function updateParticles() {
                 let diffZ = Math.abs(bolinhaParticula.position.z - targetZ);
 
                 if (diffX > 0.05 || diffZ > 0.05) { 
-                    bolinhaParticula.position.x += (targetX - p.position.x) * 0.05;
-                    bolinhaParticula.position.z += (targetZ - p.position.z) * 0.05;
+                    bolinhaParticula.position.x += (targetX - bolinhaParticula.position.x) * 0.05;
+                    bolinhaParticula.position.z += (targetZ - bolinhaParticula.position.z) * 0.05;
                 }
             }
         }
@@ -150,7 +150,7 @@ function updateParticles() {
         // Evitar sobreposição entre partículas
         for (let j = i + 1; j < bolinhas.length; j++) {
             let bolinhaIndex2 = bolinhas[j];
-            let bolinhaParticula2 = bolinhaIndex.getParticle();
+            let bolinhaParticula2 = bolinhaIndex2.getParticle();
 
             // let p2 = bolinhas[j];
 
