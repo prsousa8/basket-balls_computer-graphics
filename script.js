@@ -187,7 +187,7 @@ function createStartButton() {
         if (!gameRunning) {
             gameRunning = true;
             particleInterval = setInterval(createParticle, 800); // Inicia o intervalo de partículas
-            button.innerText = 'Pausar Jogo'; // Atualiza o texto do botão
+            button.innerText = 'Pausar Jogo'; // Atualiza o text do botão
         } else {
             gameRunning = false;
             clearInterval(particleInterval); // Para a criação das partículas
