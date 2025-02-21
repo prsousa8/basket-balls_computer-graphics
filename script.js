@@ -63,16 +63,18 @@ function createPlate() {
     plate.add(bottomMesh); // Adiciona o fundo ao grupo "plate"
 }
 function createParticle() {
-    let isVenenosa = Math.random() < 0.1; // 10% de chance de ser venenosa
-    let pontuacaoAleatoria;
+    //let pontuacaoAleatoria;
 
+    /* esse código é desnecessário
     if (isVenenosa) {
         pontuacaoAleatoria = 0; // Bolinha venenosa tem valor 0 (ou qualquer outro valor que você queira)
     } else {
         pontuacaoAleatoria = Math.ceil(Math.random() * Bolinha.getMaxPoints()); // Bolinha normal
     }
+    */
 
-    let novaBolinha = new Bolinha(pontuacaoAleatoria, isVenenosa);
+    let isVenenosa = Math.random() < 0.1; // 10% de chance de ser venenosa
+    let novaBolinha = new Bolinha(Bolinha.getRandomType(), isVenenosa);
 
     // Posição aleatória dentro do prato
     let x = (Math.random() - 0.5) * (plateRadius * 2);
@@ -111,12 +113,16 @@ function updateParticles() {
                 if (!bolinhaParticula.captured) {
                     bolinhaParticula.captured = true;
 
+                    updateScore(bolinhaIndex.getScoreValue());
+
+                    /* essa parte do código é desnecessária
                     // Verifica se a bolinha é venenosa
                     if (bolinhaIndex.isVenenosa()) {
                         updateScore(-5); // Tira 10 pontos se for venenosa
                     } else {
                         updateScore(1); // Adiciona pontos normais
                     }
+                    */
                 }
             }
         }
