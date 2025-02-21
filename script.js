@@ -62,38 +62,33 @@ function createPlate() {
 
     plate.add(bottomMesh); // Adiciona o fundo ao grupo "plate"
 }
-
 function createParticle() {
-    let pontuacaoAleatoria = Math.ceil(Math.random() * Bolinha.getMaxPoints());
-    let novaBolinha = new Bolinha(pontuacaoAleatoria);
+    let isVenenosa = Math.random() < 0.1; // 10% de chance de ser venenosa
+    let pontuacaoAleatoria;
 
-    /*
-    let geometry = new THREE.SphereGeometry(0.1, 16, 16);
-    // let material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-    let material = getRandomMaterial(); // Usa a função do módulo
-    let particle = new THREE.Mesh(geometry, material);
-    */
+    if (isVenenosa) {
+        pontuacaoAleatoria = 0; // Bolinha venenosa tem valor 0 (ou qualquer outro valor que você queira)
+    } else {
+        pontuacaoAleatoria = Math.ceil(Math.random() * Bolinha.getMaxPoints()); // Bolinha normal
+    }
 
-    // Posição aleatória **fixa** dentro de um intervalo no eixo X e Z
-    // let spawnRadius = plateRadius * 0.8;
-    let x = (Math.random() - 0.5) * (plateRadius * 2); // Garante que caia dentro de uma área fixa
-    let z = (Math.random() - 0.5) * (plateRadius * 2); 
+    let novaBolinha = new Bolinha(pontuacaoAleatoria, isVenenosa);
+
+    // Posição aleatória dentro do prato
+    let x = (Math.random() - 0.5) * (plateRadius * 2);
+    let z = (Math.random() - 0.5) * (plateRadius * 2);
 
     let particula = novaBolinha.getParticle();
     particula.position.set(x, 5, z); // Mantém a altura fixa para cair de cima
     particula.velocity = new THREE.Vector3(0, gravity, 0);
-    
+
     scene.add(particula);
     bolinhas.push(novaBolinha);
 }
-
 function updateParticles() {
     for (let i = bolinhas.length - 1; i >= 0; i--) {
         let bolinhaIndex = bolinhas[i];
         let bolinhaParticula = bolinhaIndex.getParticle();
-
-
-        // let p = bolinhas[i];
 
         bolinhaParticula.velocity.y += gravity;
         bolinhaParticula.position.add(bolinhaParticula.velocity);
@@ -115,11 +110,18 @@ function updateParticles() {
             } else {
                 if (!bolinhaParticula.captured) {
                     bolinhaParticula.captured = true;
-                    updateScore(1);
+
+                    // Verifica se a bolinha é venenosa
+                    if (bolinhaIndex.isVenenosa()) {
+                        updateScore(-100); // Tira 10 pontos se for venenosa
+                    } else {
+                        updateScore(1); // Adiciona pontos normais
+                    }
                 }
             }
         }
 
+    
         // Só corrige a posição se realmente estiver saindo do prato
         if (bolinhaParticula.captured) {
             let dx = bolinhaParticula.position.x - plate.position.x;
