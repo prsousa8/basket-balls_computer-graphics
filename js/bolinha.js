@@ -1,14 +1,30 @@
 import * as THREE from 'three';
-import { getIndexedMaterial } from './textures';
+import { getIndexedMaterial, getRandomMaterial } from './textures';
 import { getTotalTexturesNum } from './textures';
+import { rand } from 'three/tsl';
 
 class Bolinha {
-    constructor(pointValue, venenosa = false) {
-        this.venenosa = venenosa;
+    constructor(type) {
         let geometry = new THREE.SphereGeometry(0.1, 16, 16);
 
         // Define o material com base no tipo de bolinha
         let material;
+        switch (type) {
+            case 1:
+                material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Vermelho
+                this.scoreValue = -5;
+                break;
+            case 3:
+                material = new THREE.MeshBasicMaterial({ color: 0xff00 }); // Verde
+                this.scoreValue = 10;
+                break;        
+            default:
+                material = getRandomMaterial(); // material basico de textura aleatoria
+                this.scoreValue = 1;
+                break;
+        }
+
+        /* código legacy
         if (venenosa) {
             // Material específico para a bolinha venenosa (por exemplo, cor vermelha)
             material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Vermelho
@@ -16,11 +32,12 @@ class Bolinha {
         } else {
             // Material normal para bolinhas comuns
             material = getIndexedMaterial(0);
-            if (pointValue > 0 && pointValue <= getTotalTexturesNum()) {
-                material = getIndexedMaterial(pointValue - 1);
+            if (type > 0 && type <= getTotalTexturesNum()) {
+                material = getIndexedMaterial(type - 1);
             }
-            this.scoreValue = pointValue;
+            this.scoreValue = type;
         }
+        */
 
         this.particle = new THREE.Mesh(geometry, material);
     }
@@ -39,16 +56,15 @@ class Bolinha {
         return this.scoreValue;
     }
 
-    isVenenosa() {
-        return this.venenosa;
-    }
-
-    static getMaxPoints() {
-        return getTotalTexturesNum();
-    }
-
-    static getRandomType() {
-        return Math.ceil(Math.random() * Bolinha.getMaxPoints());
+    static getRandomType(chance_venenosa, chance_especial) {
+        let n = Math.random();
+        if (n < chance_venenosa) {
+            return 1;
+        } else if (n > 1 - chance_especial) {
+            return 3;
+        } else {
+            return 2;
+        }
     }
 }
 

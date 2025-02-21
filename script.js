@@ -73,8 +73,10 @@ function createParticle() {
     }
     */
 
-    let isVenenosa = Math.random() < 0.1; // 10% de chance de ser venenosa
-    let novaBolinha = new Bolinha(Bolinha.getRandomType(), isVenenosa);
+    //let isVenenosa = Math.random() < 0.1; // 10% de chance de ser venenosa
+
+    // 10% de ser venenosa, 20% de ser especial
+    let novaBolinha = new Bolinha(Bolinha.getRandomType(0.1, 0.2));
 
     // Posição aleatória dentro do prato
     let x = (Math.random() - 0.5) * (plateRadius * 2);
