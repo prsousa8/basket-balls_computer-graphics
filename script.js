@@ -113,7 +113,7 @@ function updateParticles() {
 
                     // Verifica se a bolinha é venenosa
                     if (bolinhaIndex.isVenenosa()) {
-                        updateScore(-100); // Tira 10 pontos se for venenosa
+                        updateScore(-5); // Tira 10 pontos se for venenosa
                     } else {
                         updateScore(1); // Adiciona pontos normais
                     }

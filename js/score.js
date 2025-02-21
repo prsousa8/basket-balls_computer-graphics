@@ -33,6 +33,9 @@ function createScorePanel(enable = true) {
 function updateScore(points) {
     if (scoreElement) {
         score += points;
+        if(score<0){
+            score=0;
+        }
         scoreElement.textContent = score;
     }
 }
