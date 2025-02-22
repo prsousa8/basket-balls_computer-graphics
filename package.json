@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "basket-balls_computer-graphics": "file:",
+    "dat.gui": "^0.7.9",
     "three": "^0.173.0"
   }
 }

@@ -1,30 +1,30 @@
-import * as THREE from 'three';
-import { getIndexedMaterial, getRandomMaterial } from './textures';
-import { getTotalTexturesNum } from './textures';
-import { rand } from 'three/tsl';
+import * as THREE from "three";
+import { getIndexedMaterial, getRandomMaterial } from "./textures";
+import { getTotalTexturesNum } from "./textures";
+import { rand } from "three/tsl";
 
 class Bolinha {
-    constructor(type) {
-        let geometry = new THREE.SphereGeometry(0.1, 16, 16);
+  constructor(type) {
+    let geometry = new THREE.SphereGeometry(0.1, 16, 16);
 
-        // Define o material com base no tipo de bolinha
-        let material;
-        switch (type) {
-            case 1:
-                material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Vermelho
-                this.scoreValue = -5;
-                break;
-            case 3:
-                material = new THREE.MeshBasicMaterial({ color: 0xff00 }); // Verde
-                this.scoreValue = 10;
-                break;        
-            default:
-                material = getRandomMaterial(); // material basico de textura aleatoria
-                this.scoreValue = 1;
-                break;
-        }
+    // Define o material com base no tipo de bolinha
+    let material;
+    switch (type) {
+      case 1:
+        material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Vermelho
+        this.scoreValue = -5;
+        break;
+      case 3:
+        material = new THREE.MeshBasicMaterial({ color: 0xff00 }); // Verde
+        this.scoreValue = 10;
+        break;
+      default:
+        material = getRandomMaterial(); // material basico de textura aleatoria
+        this.scoreValue = 1;
+        break;
+    }
 
-        /* código legacy
+    /* código legacy
         if (venenosa) {
             // Material específico para a bolinha venenosa (por exemplo, cor vermelha)
             material = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Vermelho
@@ -39,33 +39,33 @@ class Bolinha {
         }
         */
 
-        this.particle = new THREE.Mesh(geometry, material);
-    }
+    this.particle = new THREE.Mesh(geometry, material);
+  }
 
-    getParticle() {
-        return this.particle;
-    }
+  getParticle() {
+    return this.particle;
+  }
 
-    getScoreValue() {
-        /* essa parte do código é desnecessária
+  getScoreValue() {
+    /* essa parte do código é desnecessária
         // Se a bolinha for venenosa, retorna -10 pontos
         if (this.venenosa) {
             return -10;
         }
         */
-        return this.scoreValue;
-    }
+    return this.scoreValue;
+  }
 
-    static getRandomType(chance_venenosa, chance_especial) {
-        let n = Math.random();
-        if (n < chance_venenosa) {
-            return 1;
-        } else if (n > 1 - chance_especial) {
-            return 3;
-        } else {
-            return 2;
-        }
+  static getRandomType(chance_venenosa, chance_especial) {
+    let n = Math.random();
+    if (n < chance_venenosa) {
+      return 1;
+    } else if (n > 1 - chance_especial) {
+      return 3;
+    } else {
+      return 2;
     }
+  }
 }
 
 export { Bolinha };
