@@ -108,6 +108,8 @@ function createParticle() {
 }
 
 function updateParticles() {
+  if (!gameRunning) return; // Se o jogo estiver pausado, não atualiza as partículas
+
   for (let i = bolinhas.length - 1; i >= 0; i--) {
     let bolinhaIndex = bolinhas[i];
     let bolinhaParticula = bolinhaIndex.getParticle();
