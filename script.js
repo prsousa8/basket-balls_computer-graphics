@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GUI } from "dat.gui"; // Importando dat.GUI
+import { GUI } from "dat.gui";
+import { startTimer, createTimer, stopTimer } from "./js/timer.js";
+import { checkCollision } from "./js/collision.js";
 
 import {
   createScorePanel,
@@ -54,7 +56,8 @@ function init() {
 
   createPlate();
   createStartButton();
-  createGUI(); // Cria o painel de controle com dat.GUI
+  createGUI(); 
+  createTimer(); 
   animate();
 }
 
@@ -133,6 +136,7 @@ function updateParticles() {
         continue;
       } else {
         if (!bolinhaParticula.captured) {
+          checkCollision(bolinhaIndex, plate, plateRadius);
           bolinhaParticula.captured = true;
           updateScore(bolinhaIndex.getScoreValue());
         }
@@ -234,11 +238,13 @@ function createStartButton() {
     if (!gameRunning) {
       gameRunning = true;
       particleInterval = setInterval(createParticle, 1000 / velocityControl); // Inicia o intervalo de partículas
-      button.innerText = "Pausar Jogo"; // Atualiza o text do botão
+      button.innerText = "Pausar Jogo"; 
+      startTimer();  
     } else {
       gameRunning = false;
       clearInterval(particleInterval); // Para a criação das partículas
       button.innerText = "Iniciar Jogo"; // Restaura o texto do botão
+      stopTimer();  
     }
   });
 }
