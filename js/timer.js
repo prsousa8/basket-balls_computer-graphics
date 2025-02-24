@@ -7,8 +7,8 @@ function createTimer() {
   timerElement = document.createElement("div");
   timerElement.id = "timer";
   timerElement.style.position = "absolute";
-  timerElement.style.bottom = "10px"; 
-  timerElement.style.right = "10px"; 
+  timerElement.style.top = "10px"; 
+  timerElement.style.right = "8px"; 
   timerElement.style.padding = "10px";
   timerElement.style.background = "rgba(0, 0, 0, 0.7)";
   timerElement.style.color = "white";

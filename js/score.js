@@ -11,7 +11,7 @@ function createScorePanel(enable = true) {
     scoreContainer = document.createElement("div");
     scoreContainer.id = "score-container";
     scoreContainer.style.position = "absolute";
-    scoreContainer.style.top = "10px";
+    scoreContainer.style.top = "55px";
     scoreContainer.style.right = "10px";
     scoreContainer.style.padding = "10px";
     scoreContainer.style.background = "rgba(0, 0, 0, 0.7)";
@@ -60,7 +60,8 @@ function createToggleScoreButton() {
   button.id = "btnScore";
   button.innerText = scoreEnabled ? "Hide score" : "Show score"; // Alterando o texto com base no estado
   button.style.position = "absolute";
-  button.style.left = "50%";
+  button.style.left = "79.5%";
+  button.style.top = "90px";
   button.style.transform = "translateX(-50%)";
   button.style.padding = "10px 20px";
   button.style.fontSize = "16px";
@@ -72,7 +73,7 @@ function createToggleScoreButton() {
     toggleScoreVisibility(scoreEnabled); // Aplica a mudança
 
     // Atualiza o texto do botão com base no novo estado
-    button.innerText = scoreEnabled ? "Hide score" : "Show score";
+    button.innerText = scoreEnabled ? "Esconder Score" : "Mostrar Score";
   });
 }
 

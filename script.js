@@ -95,7 +95,7 @@ function createPlate() {
   bottomMesh.rotation.x = -Math.PI / 2; // Rotaciona para que o fundo fique na horizontal
   bottomMesh.position.y = 0; // Coloca o fundo no mesmo nível do chão
 
-  plate.add(bottomMesh); // Adiciona o fundo ao grupo "plate"
+  plate.add(bottomMesh); // Adiciona o fundo ao grupo "plate" 
 }
 
 function createParticle() {
@@ -201,17 +201,21 @@ function createGUI() {
 
   // Ajustando a posição do painel de controle
   gui.domElement.style.position = "absolute";
-  gui.domElement.style.top = "60px"; // Desloca o painel para baixo
-  gui.domElement.style.right = "10px"; // Mantém o painel à direita
+  gui.domElement.style.top = "10px"; // Desloca o painel para baixo
+  gui.domElement.style.right = "10%"; // Mantém o painel à direita
 
   // Controle de gravidade
-  gui.add({ gravity: gravityControl }, "gravity", -0.1, 0).onChange((value) => {
+  gui
+  .add({ gravity: gravityControl }, "gravity", -0.1, 0)
+  .name("Gravidade")
+  .onChange((value)  => {
     gravityControl = value;
   });
 
   // Controle de velocidade
   gui
     .add({ velocity: velocityControl }, "velocity", 0.1, 2)
+    .name("Velocidade")
     .onChange((value) => {
       velocityControl = value;
       particleInterval = setInterval(createParticle, 1000 / velocityControl);
@@ -230,7 +234,7 @@ function createStartButton() {
   button.innerText = "Iniciar Jogo";
   button.style.position = "absolute";
   button.style.top = "10px";
-  button.style.left = "10%";
+  button.style.left = "8%";
   button.style.transform = "translateX(-50%)";
   button.style.padding = "10px 20px";
   button.style.fontSize = "16px";
@@ -279,7 +283,7 @@ function createRestartButton() {
   restartButton.innerText = "Reiniciar Jogo";
   restartButton.style.position = "absolute";
   restartButton.style.top = "10px";
-  restartButton.style.left = "70%";
+  restartButton.style.left = "20%";
   restartButton.style.transform = "translateX(-50%)";
   restartButton.style.padding = "10px 20px";
   restartButton.style.fontSize = "16px";
