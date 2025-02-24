@@ -38,4 +38,11 @@ function stopTimer() {
   clearInterval(timerInterval);
 }
 
-export { createTimer, startTimer, stopTimer };
+function clearTimer() {
+  clearInterval(timerInterval); 
+  timerElement.innerHTML = "Tempo: 00:00"; 
+  elapsedTime = 0; 
+  startTime = 0; 
+}
+
+export { createTimer, startTimer, stopTimer, clearTimer };

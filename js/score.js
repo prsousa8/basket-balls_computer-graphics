@@ -47,6 +47,13 @@ function toggleScoreVisibility(enable) {
   }
 }
 
+function clearScore() {
+  score = 0; 
+  if (scoreElement) {
+    scoreElement.textContent = score; 
+  }
+}
+
 // Criando o botão para alternar a visibilidade da pontuação
 function createToggleScoreButton() {
   let button = document.createElement("button");
@@ -74,4 +81,5 @@ export {
   updateScore,
   toggleScoreVisibility,
   createToggleScoreButton,
+  clearScore
 };

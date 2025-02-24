@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GUI } from "dat.gui";
-import { startTimer, createTimer, stopTimer } from "./js/timer.js";
+import { startTimer, createTimer, stopTimer, clearTimer } from "./js/timer.js";
 import { checkCollision } from "./js/collision.js";
 
 import {
   createScorePanel,
   updateScore,
   createToggleScoreButton,
+  clearScore
 } from "./js/score.js";
 import { Bolinha } from "./js/bolinha.js";
 
@@ -21,6 +22,7 @@ let plate,
 let plateRadius = 1.5;
 let gameRunning = false;
 let particleInterval;
+let button; 
 
 // Variáveis para controle de gravidade e velocidade
 let gravityControl = -0.005;
@@ -55,9 +57,10 @@ function init() {
   scene.add(ground);
 
   createPlate();
-  createStartButton();
-  createGUI(); 
-  createTimer(); 
+  createStartButton(); 
+  createRestartButton(); 
+  createGUI();
+  createTimer();
   animate();
 }
 
@@ -223,7 +226,7 @@ window.addEventListener("mousemove", (event) => {
 });
 
 function createStartButton() {
-  let button = document.createElement("button");
+  button = document.createElement("button");
   button.innerText = "Iniciar Jogo";
   button.style.position = "absolute";
   button.style.top = "10px";
@@ -239,13 +242,52 @@ function createStartButton() {
       gameRunning = true;
       particleInterval = setInterval(createParticle, 1000 / velocityControl); // Inicia o intervalo de partículas
       button.innerText = "Pausar Jogo"; 
-      startTimer();  
+      startTimer();
     } else {
       gameRunning = false;
       clearInterval(particleInterval); // Para a criação das partículas
-      button.innerText = "Iniciar Jogo"; // Restaura o texto do botão
-      stopTimer();  
+      button.innerText = "Iniciar Jogo"; 
+      stopTimer(); 
     }
+  });
+}
+
+function restartGame() {
+  for (let i = bolinhas.length - 1; i >= 0; i--) {
+    let bolinhaParticula = bolinhas[i].getParticle();
+    scene.remove(bolinhaParticula);
+    bolinhas.splice(i, 1);
+  }
+
+  updateScore(0); 
+
+  plate.position.set(0, 0.3, 0); 
+
+  clearTimer(); 
+  clearScore(); 
+
+  if (gameRunning) {
+    clearInterval(particleInterval); 
+    gameRunning = false;
+    button.innerText = "Iniciar Jogo"; 
+    stopTimer(); 
+  }
+}
+
+function createRestartButton() {
+  let restartButton = document.createElement("button");
+  restartButton.innerText = "Reiniciar Jogo";
+  restartButton.style.position = "absolute";
+  restartButton.style.top = "10px";
+  restartButton.style.left = "70%";
+  restartButton.style.transform = "translateX(-50%)";
+  restartButton.style.padding = "10px 20px";
+  restartButton.style.fontSize = "16px";
+  restartButton.style.cursor = "pointer";
+  document.body.appendChild(restartButton);
+
+  restartButton.addEventListener("click", () => {
+    restartGame();
   });
 }
 
