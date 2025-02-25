@@ -1,6 +1,6 @@
 <h1 align="center">Game	Cesta	de	Bolinhas</h1>
 
-<p align="justify">O projeto é uma simulação física interativa baseada em um sistema de partículas, permitindo a interação do usuário. Esse jogo consiste em uma "cesta" ou "bacia" que pode ser controlada pelo mouse. As bolinhas, geradas como partículas no topo da tela, caem seguindo as leis da física. O desafio do jogador é capturá-las antes que atinjam o solo. A simulação incorpora conceitos de física, como gravidade e colisões, garantindo um comportamento realista tanto na queda das bolinhas quanto na interação com a cesta e o ambiente. 🚀</p>
+<p align="justify">O projeto é uma simulação física interativa baseada em um sistema de partículas que permite a interação do usuário. Esse jogo consiste em uma "cesta" ou "bacia" que pode ser controlada pelo usuário com o uso do mouse. As bolinhas, geradas como partículas no topo da tela, caem seguindo as leis da física. O desafio do jogador é capturá-las antes que atinjam o solo. A simulação incorpora conceitos de física, como gravidade e colisões, garantindo um comportamento realista tanto na queda das bolinhas quanto na interação com a cesta e o ambiente. 🚀</p>
 
 ## Vídeo do Projeto
 
@@ -32,7 +32,7 @@ Instale o NodeJs para usar as dependências corretamente. Acesse o site https://
 Escolha um editor de código de sua preferência. Algumas opções populares incluem o Visual Studio Code, Sublime Text, Atom, entre outros. Você pode baixar e instalar o Visual Studio Code em https://code.visualstudio.com/.
 
 ### 1. **Usar o CDN**
-Você pode incluir o Three.js diretamente em seu projeto HTML através de um link CDN. Este é o método mais simples para quem quer começar rapidamente, sem gerenciar dependências:
+Você pode incluir o Three.js diretamente em seu projeto HTML através de um link CDN. Esse é o método mais simples para quem quer começar rapidamente, sem gerenciar dependências:
 
 ```html
 <!DOCTYPE html>

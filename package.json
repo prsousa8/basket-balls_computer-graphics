@@ -10,10 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^6.1.0"
+    "vite": "^6.1.1"
   },
   "dependencies": {
     "basket-balls_computer-graphics": "file:",
+    "dat.gui": "^0.7.9",
     "three": "^0.173.0"
   }
 }
