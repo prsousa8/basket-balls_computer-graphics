@@ -32,7 +32,7 @@ Instale o NodeJs para usar as dependências corretamente. Acesse o site https://
 Escolha um editor de código de sua preferência. Algumas opções populares incluem o Visual Studio Code, Sublime Text, Atom, entre outros. Você pode baixar e instalar o Visual Studio Code em https://code.visualstudio.com/.
 
 ### 1. **Usar o CDN**
-Você pode incluir o Three.js diretamente em seu projeto HTML através de um link CDN. Este é o método mais simples para quem quer começar rapidamente, sem gerenciar dependências:
+Você pode incluir o Three.js diretamente em seu projeto HTML através de um link CDN. Esse é o método mais simples para quem quer começar rapidamente, sem gerenciar dependências:
 
 ```html
 <!DOCTYPE html>
