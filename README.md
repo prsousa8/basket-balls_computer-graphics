@@ -5,7 +5,7 @@
 ## Vídeo do Projeto
 
 Link do vídeo mostrando o projeto em funcionamento <br>
-<a href="" target="_blank"> Clique aqui!</a>
+<a href="https://youtu.be/f5671DC7bBY?si=4WRgQBiclyQdGl7T" target="_blank"> Clique aqui!</a>
 
 ## Aquisição de texturas
 
