@@ -1,6 +1,6 @@
 <h1 align="center">Game	Cesta	de	Bolinhas</h1>
 
-<p align="justify">O projeto é uma simulação física interativa baseada em um sistema de partículas que permite a interação do usuário. Esse jogo consiste em uma "cesta" ou "bacia" que pode ser controlada pelo mouse. As bolinhas, geradas como partículas no topo da tela, caem seguindo as leis da física. O desafio do jogador é capturá-las antes que atinjam o solo. A simulação incorpora conceitos de física, como gravidade e colisões, garantindo um comportamento realista tanto na queda das bolinhas quanto na interação com a cesta e o ambiente. 🚀</p>
+<p align="justify">O projeto é uma simulação física interativa baseada em um sistema de partículas que permite a interação do usuário. Esse jogo consiste em uma "cesta" ou "bacia" que pode ser controlada pelo usuário com o uso do mouse. As bolinhas, geradas como partículas no topo da tela, caem seguindo as leis da física. O desafio do jogador é capturá-las antes que atinjam o solo. A simulação incorpora conceitos de física, como gravidade e colisões, garantindo um comportamento realista tanto na queda das bolinhas quanto na interação com a cesta e o ambiente. 🚀</p>
 
 ## Vídeo do Projeto
 
