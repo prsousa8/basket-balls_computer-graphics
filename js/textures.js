@@ -12,6 +12,7 @@ const iceTexture = textureLoader.load('assets/textures/ice.png');
 const wallTexture = textureLoader.load('assets/textures/wall.png');
 const carbonFiberTexture = textureLoader.load('assets/textures/carbon_fiber.png');
 const neonTexture = textureLoader.load('assets/textures/painted-worn-asphalt.png');
+const ialisTexture = textureLoader.load('assets/textures/ialis.png');
 
 // Criando materiais para as bolinhas
 const materials = [
@@ -23,7 +24,8 @@ const materials = [
     new THREE.MeshStandardMaterial({ map: iceTexture, transparent: true, opacity: 0.7, roughness: 0.2, metalness: 0.1 }), // Gelo
     new THREE.MeshStandardMaterial({ map: wallTexture, roughness: 0.9 }), // Pedra
     new THREE.MeshStandardMaterial({ map: carbonFiberTexture, metalness: 0.6, roughness: 0.2 }), // Fibra de carbono
-    new THREE.MeshStandardMaterial({ map: neonTexture, emissiveIntensity: 1.2 }) // Neon brilhante
+    new THREE.MeshStandardMaterial({ map: neonTexture, emissiveIntensity: 1.2 }), // Neon brilhante
+    new THREE.MeshStandardMaterial({ map: ialisTexture, emissiveIntensity: 1.2 }) //Iális
 ];
 
 // Função que retorna um material aleatório
