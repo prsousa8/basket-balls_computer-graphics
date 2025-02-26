@@ -28,6 +28,8 @@ As texturas utilizadas no projeto podem ser encontradas no site abaixo. <br>
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg" height="30" alt="threejs logo" />
    <img width="12" />
+
+	
 Para criar um ambiente adequado de desenvolvimento Web, executamos os seguintes passos:
 
 ### Instalação do Node
