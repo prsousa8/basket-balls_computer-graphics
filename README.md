@@ -2,10 +2,13 @@
 
 <p align="justify">O projeto é uma simulação física interativa baseada em um sistema de partículas que permite a interação do usuário. Esse jogo consiste em uma "cesta" ou "bacia" que pode ser controlada pelo usuário com o uso do mouse. As bolinhas, geradas como partículas no topo da tela, caem seguindo as leis da física. O desafio do jogador é capturá-las antes que atinjam o solo. A simulação incorpora conceitos de física, como gravidade e colisões, garantindo um comportamento realista tanto na queda das bolinhas quanto na interação com a cesta e o ambiente. 🚀</p>
 
-## Vídeo do Projeto
+<h2 align="center">Vídeo do Projeto</h2>
 
-Link do vídeo mostrando o projeto em funcionamento <br>
-<a href="https://youtu.be/f5671DC7bBY?si=4WRgQBiclyQdGl7T" target="_blank"> Clique aqui!</a>
+<div align="center">
+	<img src="assets/video.gif" />
+</div>
+
+Link do vídeo mostrando o projeto em funcionamento: <a href="https://youtu.be/f5671DC7bBY?si=4WRgQBiclyQdGl7T" target="_blank"> Clique aqui!</a>
 
 ## Aquisição de texturas
 
@@ -21,7 +24,10 @@ As texturas utilizadas no projeto podem ser encontradas no site abaixo. <br>
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" height="30" alt="javascript logo"/>
   <img width="12" />
-
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg" height="30" alt="vite logo" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg" height="30" alt="threejs logo" />
+   <img width="12" />
 Para criar um ambiente adequado de desenvolvimento Web, executamos os seguintes passos:
 
 ### Instalação do Node
@@ -31,34 +37,27 @@ Instale o NodeJs para usar as dependências corretamente. Acesse o site https://
 
 Escolha um editor de código de sua preferência. Algumas opções populares incluem o Visual Studio Code, Sublime Text, Atom, entre outros. Você pode baixar e instalar o Visual Studio Code em https://code.visualstudio.com/.
 
-### 1. **Usar o CDN**
-Você pode incluir o Three.js diretamente em seu projeto HTML através de um link CDN. Esse é o método mais simples para quem quer começar rapidamente, sem gerenciar dependências:
+Para preparar um ambiente adequado a fim de instalar suas dependÊncias, execute o seguinte comando na sua pasta do projeto:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Three.js</title>
-	<link rel="stylesheet" href="./main.css">
-	<script type="importmap">
-		{
-		  "imports": {
-			"three": "https://cdn.jsdelivr.net/npm/three@0.172.0/build/three.module.js",
-			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.172.0/examples/jsm/"
-		  }
-		}
-	  </script>
-</head>
-<body>
-	<canvas id="three-canvas"></canvas>
-  <script type="module" src="main.js"></script>
-</body>
-</html>
-```
+~~~
+	npm init -y
+~~~
 
+Esse comando inicializa o projeto, adicionando o arquivo package.json, muito importante para registrar as dependências instaladas.
+
+### Instalação do vite
+
+O Vite vai ser utilizado para executar seu projeto. Instale o vite por meio do comando:
+~~~
+npm install vite
+~~~
+
+### Usar a biblioteca Three.JS
+Você pode incluir o Three.js diretamente em seu projeto HTML fazendo a instalação da biblioteca do Three.Js usando o seguinte comando na pasta do seu projeto:
+
+~~~
+	npm install three
+~~~
 ## Executando o Projeto ⏳
 
 Para executar o projeto, realize as seguintes etapas:
@@ -78,14 +77,9 @@ E entre na pasta do projeto usando
 cd basket-balls_computer-graphics
 ~~~
 
-### Instalação do vite
+### Instalação de dependências
 
-Instale o vite por meio do comando:
-~~~
-npm install --save-dev vite
-~~~
-
-Ou instale todas as dependências de uma única vez com:
+Instale todas as dependências de uma única vez com:
 ~~~
 npm install
 ~~~
